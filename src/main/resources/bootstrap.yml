@@ -1,0 +1,82 @@
+management: 
+  endpoint: 
+    metrics: 
+      enabled: true
+    prometheus: 
+      enabled: true
+  endpoints: 
+    web: 
+      exposure: 
+        include: "*"
+  metrics: 
+    export: 
+      prometheus: 
+        enabled: true
+spring: 
+  application: 
+    name: corefundtransfer
+  cloud: 
+    config: 
+      failFast: false
+      retry: 
+        maxAttempts: 20
+      uri: ${CONFIG_SERVER_URI}
+  profiles: 
+    active: ${PROFILE:dev}
+  sleuth: 
+    sampler: 
+      percentage: 1
+  api: 
+    accountdetails: 
+      context-path: /CurrentAccount/{currentaccountId}/Retrieve
+      hosturl: v1/bian-3/core/payment/creditor/10.0.0/
+      jolt-filename: accountdetails499756-jolt.json
+    authentication: 
+      context-path: /Paymentauthentication
+      hosturl: ftcore/authentication
+      jolt-filename: authentication786320-jolt.json
+    balancecheck: 
+      context-path: /CorporateCurrentAccount/balancecheck
+      hosturl: ftcore/balancecheck
+      jolt-filename: balancecheck709019-jolt.json
+    beneficiaries: 
+      context-path: /Beneficiaries/{currentaccountId}/Retrieve
+      hosturl: v1/bian-3/core/payment/debitor/10.0.0/
+      jolt-filename: Beneficiaries249546-jolt.json
+    compliancecheck: 
+      context-path: /RegulatoryCompliance/Evaluate
+      hosturl: v1/bian-3/core/payment/creditor/10.0.0/
+      jolt-filename: compliancecheck906885-jolt.json
+    fundtransferinitiate: 
+      context-path: /PaymentInitiation/Initiate
+      hosturl: v1/bian-3/core/payment/creditor/10.0.0/
+      jolt-filename: fundtransferinitiate277670-jolt.json
+    notification: 
+      context-path: /Notifications
+      hosturl: ftcore/notifications
+      jolt-filename: notification626500-jolt.json
+    panvalidation: 
+      context-path: /panverification/{currentaccountId}
+      hosturl: v1/bian-3/core/payment/debitor/10.0.0/
+      jolt-filename: panvalidation828481-jolt.json
+    paymentexecution: 
+      context-path: /PaymentExecution/Initiate
+      hosturl: v1/bian-3/core/payment/creditor/10.0.0/
+      jolt-filename: paymentexecution470431-jolt.json
+    paymentorder: 
+      context-path: /PaymentOrder/Initiate
+      hosturl: v1/bian-3/core/payment/creditor/10.0.0/
+      jolt-filename: paymentorder649549-jolt.json
+    schedulepayment: 
+      context-path: /PaymentScheduleExecution/Initiate
+      hosturl: ftcore/schedulepayment
+      jolt-filename: schedulepayment630283-jolt.json
+    verifyaccount: 
+      context-path: /CurrentAccount/{currentaccountId}/Retrieve
+      hosturl: v1/bian-3/core/payment/creditor/10.0.0/
+      jolt-filename: verifyaccount963129-jolt.json
+  datasource: 
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: ${mysql_pwd}
+    url: jdbc:mysql://${mysql_url}:3306/camunda
+    username: ${mysql_user}
